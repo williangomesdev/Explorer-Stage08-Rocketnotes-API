@@ -52,3 +52,34 @@ Call stack = pilha de funções, assíncrona sai quem executar primeiro
 
 express 
 framework para lhe dar com requisições html
+
+Rota = caminho site até servidor
+
+Site = http://meuservidor.com =  Servidor
+
+Verbos HTTP
+GET = leitura
+POST = criação
+PUT = atualização
+DELETE = deletar
+PATCH = atualização parcial
+
+GET
+
+app.get("/", (request, response) => {
+  response.send("Olá mundo!");
+});
+
+Route params
+
+- usado para dados mais simples como id
+
+app.get("/message/:id/:user", (request, response) => {
+  const { id, user } = request.params;
+
+  response.send(`id da mensagem: ${id}.
+  Para o usuário ${user}`);
+});
+
+Query Params
+
