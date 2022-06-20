@@ -70,7 +70,7 @@ app.get("/", (request, response) => {
   response.send("Olá mundo!");
 });
 
-Route params
+Route params = obrigatórios
 
 - usado para dados mais simples como id
 
@@ -81,5 +81,14 @@ app.get("/message/:id/:user", (request, response) => {
   Para o usuário ${user}`);
 });
 
-Query Params
+Query Params = opcionais
+
+//GET = pegar resposta/Query params
+localhos:3333/users?page=5&limit=10
+
+
+app.get("/users", (request, response) => {
+  const { page, limit } = request.query;
+  response.send(`Página:${page}.
+  Mostrar:${limit}`);
 
