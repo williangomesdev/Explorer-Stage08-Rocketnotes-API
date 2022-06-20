@@ -1,0 +1,54 @@
+O que é uma API?
+Prato = Pedido 
+Cliente = Cliente/Usuário = Site/ Mobile
+Garçom = API = Node.js Backend
+Cozinha = Servidor
+
+API = application programming interface
+
+interface de comunicação que um sistema oferece para que outros acessem suas funções
+
+NodeJS
+Linguagem = javascript
+
+Ambiente que executa javascript fora de um navegador
+Scripts, criação de API
+
+Onde pode ser usado
+Backend
+Frontend
+Micro services
+API
+    Web
+    Desktop
+    Mobile
+Scripts e Automação
+I.A
+Machine Learning
+
+Node.js Foundation
+    IBM
+    Microsoft
+    PayPal
+
+Rápido
+Escalável
+Aplicações de ponta JS everywhere
+Ecossistema gigante
+Amplamente utilizada
+
+v8 engine
+Interpretador javascript  = criado pelo google
+desenvolvido em C++ aumenta performance do javascript
+
+Funcionamento do node
+
+Ação => Request =>(Event Loop) Registra Callback => Call stack
+Ação <= Request <=(Event Loop) Registra Callback <= Call stack
+
+Request = email, senha
+Event Loop = controla entradas e saídas, single thread, non-blocking I/O
+Call stack = pilha de funções, assíncrona sai quem executar primeiro
+
+express 
+framework para lhe dar com requisições html
