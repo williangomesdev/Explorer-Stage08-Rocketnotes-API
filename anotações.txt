@@ -113,4 +113,11 @@ app.post("/users", (request, response) => {
 const PORT = 3333;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 
+Estruturas de projeto
+/src = arquivos da palicação
+server.js = servidors
+/routes = rotas da aplicação
+/controllers = pate responsavel por processar as requisições da nossa aplicação
+/utils =
+
 
