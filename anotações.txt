@@ -117,7 +117,44 @@ Estruturas de projeto
 /src = arquivos da palicação
 server.js = servidors
 /routes = rotas da aplicação
-/controllers = pate responsavel por processar as requisições da nossa aplicação
+/controllers = parte responsavel por processar as requisições da nossa aplicação
+
+HTTP Codes
+1XX = infomrativo
+2XX = Sucesso
+3XX = Redirecionamento
+4XX = Erro do cliente
+5XX = erro do servidor
+
+Middleware = acessa a requisição antes do destino, uma funcionalidade que tem acesso de requisição e resposta, e aproxima funçãoi de middleware no ciclo solicitação-resposta do aplicativo
+
+
+Site => Request =>(Middleware)=> newProduct
+		
+Middleware pode
+
+Executar qualquer código
+Fazer mudanças nos objetos de solicitação e resposta
+Encerrar o ciclo de solicitação-resposta
+Chamar o proximo middleware na pilha
+
+Middleware para cadastro de produto
+cadastrar produto somente se for um usar admin 
+
+//Middleware
+function myMiddleware(request, response, next) {
+  console.log("Você passou pelo middleware!");
+
+  //verificar se a propriedade de administrador do site é verdadeiro para o usuário
+  if (!request.body.isAdmin) {
+    return response.json({ message: "user unauthorized" });
+  }
+
+  //Chama o destino
+  next();
+}
+
+
 /utils =
 
 
