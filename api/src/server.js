@@ -1,5 +1,5 @@
 require("express-async-errors");
-
+const database = require("./database/sqlite");
 const AppError = require("./utils/AppError");
 const { request } = require("express");
 const express = require("express");
@@ -13,6 +13,9 @@ app.use(express.json());
 
 //Adicionando as rotas
 app.use(routes);
+
+//chamar banco de dados
+database();
 
 //tratamento de erro
 app.use((error, request, response, next) => {
