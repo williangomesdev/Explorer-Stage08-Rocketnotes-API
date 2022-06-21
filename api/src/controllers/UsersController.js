@@ -67,8 +67,9 @@ class UsersController {
       throw new AppError("Este e-mail já está em uso!");
     }
 
-    user.name = name;
-    user.email = email;
+    // se existir conteúdo atualizado insira senão insira o conteúdo anterior
+    user.name = name ?? user.name;
+    user.email = email ?? user.email;
 
     //verificações na alterações de senha
     if (password && !old_password) {
