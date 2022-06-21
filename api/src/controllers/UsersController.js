@@ -1,10 +1,11 @@
 //Importar para criptografia
-const { hash } = require("bcryptjs");
+const { hash, compare } = require("bcryptjs");
 
 //importando error
 const AppError = require("../utils/AppError");
 //importar conexão com o banco
 const sqliteConnection = require("../database/sqlite");
+
 class UsersController {
   /*um controller pode ter no máximo 5 funções
   
@@ -31,7 +32,7 @@ class UsersController {
     }
 
     //Criptografia password
-    const hashedPassword = await hash(password, 8);
+    const hashedPassword = await passwordEncryption;
 
     //Inserir dados
     await database.run(
@@ -43,11 +44,13 @@ class UsersController {
   }
 
   async update(request, response) {
-    const { name, email } = request.body;
+    const { name, email, password, old_password } = request.body;
     const { id } = request.params;
 
     const database = await sqliteConnection();
     const user = await database.get("SELECT * FROM users WHERE id = (?)", [id]);
+
+    const passwordEncryption = hash(password, 8);
 
     //se usuário não existir
     if (!user) {
@@ -67,12 +70,27 @@ class UsersController {
     user.name = name;
     user.email = email;
 
+    //verificações na alterações de senha
+    if (password && !old_password) {
+      throw new AppError(
+        "Você precisa informar a senha antiga para definir a nova senha!"
+      );
+    }
+
+    if (password && old_password) {
+      const checkOldPassword = await compare(old_password, user.password);
+      if (!checkOldPassword) {
+        throw new AppError("A senha antiga não confere");
+      }
+
+      user.password = await passwordEncryption;
+    }
     await database.run(
-      `UPDATE users SET name = ?, email = ?, updated_at = ? WHERE id =?`,
-      [user.name, user.email, new Date(), id]
+      `UPDATE users SET name = ?, email = ?,password =?, updated_at = ? WHERE id =?`,
+      [user.name, user.email, user.password, new Date(), id]
     );
 
-    return response.json()
+    return response.json();
   }
 }
 
