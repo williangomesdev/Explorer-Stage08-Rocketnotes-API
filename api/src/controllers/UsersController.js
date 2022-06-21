@@ -1,5 +1,7 @@
 //importando error
 const AppError = require("../utils/AppError");
+//importar conexão com o banco
+const sqliteConnection = require("../database/sqlite");
 class UsersController {
   /*um controller pode ter no máximo 5 funções
   
@@ -10,15 +12,21 @@ class UsersController {
   delete - DELETE para remover um registro
   */
 
-  create(request, response) {
+  async create(request, response) {
     const { name, email, password } = request.body;
 
-    //usando tratamento de erro
-    if (!name) {
-      throw new AppError("Nome é obrigatório!");
+    const database = await sqliteConnection();
+    const checkUserExists = await database.get(
+      "SELECT * FROM users WHERE email = (?)",
+      [email]
+    );
+
+    //se o email já existir disparar erro
+    if (checkUserExists) {
+      throw new AppError("Este  e-mail já está em uso!");
     }
 
-    response.status(201).json({ name, email, password });
+    return response.status(201).json();
   }
 }
 
