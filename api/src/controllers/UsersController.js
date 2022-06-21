@@ -1,3 +1,5 @@
+//importando error
+const AppError = require("../utils/AppError");
 class UsersController {
   /*um controller pode ter no máximo 5 funções
   
@@ -10,6 +12,12 @@ class UsersController {
 
   create(request, response) {
     const { name, email, password } = request.body;
+
+    //usando tratamento de erro
+    if (!name) {
+      throw new AppError("Nome é obrigatório!");
+    }
+
     response.status(201).json({ name, email, password });
   }
 }
