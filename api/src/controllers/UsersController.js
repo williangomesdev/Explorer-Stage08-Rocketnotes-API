@@ -1,3 +1,6 @@
+//Importar para criptografia
+const { hash } = require("bcryptjs");
+
 //importando error
 const AppError = require("../utils/AppError");
 //importar conexão com o banco
@@ -26,10 +29,13 @@ class UsersController {
       throw new AppError("Este  e-mail já está em uso!");
     }
 
+    //Criptografia password
+    const hashedPassword =  await hash(password, 8);
+
     //Inserir dados
     await database.run(
       "INSERT INTO users (name,email,password) VALUES (?,?,?)",
-      [name, email, password]
+      [name, email, hashedPassword]
     );
 
     return response.status(201).json();
