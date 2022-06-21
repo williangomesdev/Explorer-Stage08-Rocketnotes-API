@@ -8,7 +8,8 @@ const usersRoutes = Router();
 //instanciando na memória
 const usersController = new UsersController();
 
-usersRoutes.post("/",usersController.create);
+usersRoutes.post("/", usersController.create);
+usersRoutes.put("/:id", usersController.update);
 
 //exportar rotas para o server.js
 module.exports = usersRoutes;
