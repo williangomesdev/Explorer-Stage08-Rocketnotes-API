@@ -86,8 +86,8 @@ class UsersController {
       user.password = await passwordEncryption;
     }
     await database.run(
-      `UPDATE users SET name = ?, email = ?,password =?, updated_at = ? WHERE id =?`,
-      [user.name, user.email, user.password, new Date(), id]
+      `UPDATE users SET name = ?, email = ?,password =?, updated_at = DATETIME('now') WHERE id =?`,
+      [user.name, user.email, user.password, id]
     );
 
     return response.json();
