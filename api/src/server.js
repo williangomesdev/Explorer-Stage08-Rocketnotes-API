@@ -1,21 +1,22 @@
 require("express-async-errors");
-const database = require("./database/sqlite");
+const migrationsRun = require("./database/sqlite/migrations");
 const AppError = require("./utils/AppError");
 const { request } = require("express");
 const express = require("express");
 
 //Importar rotas
 const routes = require("./routes");
+//chamar banco de dados/criar novo
+migrationsRun();
 
 const app = express();
 //Informar qual o formato que o servidor enviará os dados
 app.use(express.json());
 
+
 //Adicionando as rotas
 app.use(routes);
 
-//chamar banco de dados
-database();
 
 //tratamento de erro
 app.use((error, request, response, next) => {
