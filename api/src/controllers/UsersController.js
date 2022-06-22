@@ -17,6 +17,7 @@ class UsersController {
   */
 
   //Criação
+  
   async create(request, response) {
     const { name, email, password } = request.body;
 
