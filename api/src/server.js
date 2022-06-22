@@ -6,6 +6,7 @@ const express = require("express");
 
 //Importar rotas
 const routes = require("./routes");
+
 //chamar banco de dados/criar novo
 migrationsRun();
 

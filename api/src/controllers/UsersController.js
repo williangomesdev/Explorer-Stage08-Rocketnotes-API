@@ -3,6 +3,7 @@ const { hash, compare } = require("bcryptjs");
 
 //importando error
 const AppError = require("../utils/AppError");
+
 //importar conexão com o banco
 const sqliteConnection = require("../database/sqlite");
 
