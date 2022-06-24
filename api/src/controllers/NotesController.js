@@ -1,5 +1,6 @@
 const { response } = require("express");
 const knex = require("../database/knex");
+const notesRoutes = require("../routes/notes.routes");
 
 class NotesController {
   async create(request, response) {
@@ -32,6 +33,21 @@ class NotesController {
     await knex("tags").insert(tagsInsert);
 
     response.json();
+  }
+
+  //mostrar notas em tela
+  async show(request, response) {
+    const { id } = request.params;
+
+    const note = await knex("notes").where({ id }).first();
+    const tags = await knex("tags").where({ note_id: id }).orderBy("name");
+    const links = await knex("links").where({ note_id: id }).orderBy("created_at");
+
+    return response.json({
+      ...note,
+      tags,
+      links
+    });
   }
 }
 
