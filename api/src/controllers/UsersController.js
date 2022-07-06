@@ -16,12 +16,12 @@ class UsersController {
   update = PUT atualizar um registro
   delete - DELETE para remover um registro
   */
-
-  //Criação
-  
-  async create(request, response) {
-    const { name, email, password } = request.body;
-
+ 
+ //Criação
+ 
+ async create(request, response) {
+   const { name, email, password } = request.body;
+   const passwordEncryption = hash(password, 8);
     const database = await sqliteConnection();
     const checkUserExists = await database.get(
       "SELECT * FROM users WHERE email = (?)",
@@ -47,12 +47,10 @@ class UsersController {
 
   async update(request, response) {
     const { name, email, password, old_password } = request.body;
+    const passwordEncryption = hash(password, 8);
     const { id } = request.params;
-
     const database = await sqliteConnection();
     const user = await database.get("SELECT * FROM users WHERE id = (?)", [id]);
-
-    const passwordEncryption = hash(password, 8);
 
     //se usuário não existir
     if (!user) {
